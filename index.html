@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmileOS 2.0 // Interface Core</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="os-emulated-body">
+
+    <audio id="sndMúsica" src="sonido/Take Care (ULTRAKILL_ INFINITE HYPERDEATH).mp3" preload="auto" loop></audio>
+
+    <div class="smile-os-top-bar">
+        <div class="os-left-brand">
+            <img src="img/HELLITSELF1 (2).png" alt="OS_Logo" class="os-top-image-logo">
+            <span class="os-title">SmileOS 2.0</span>
+        </div>
+        <span class="os-status">Sistema de Ultracalculo </span>
+        <div class="os-window-controls">
+            <button class="os-btn-min">-</button>
+            <button class="os-btn-max">+</button>
+            <button class="os-btn-close" onclick="alternarMusica()">
+                <i class="fa-solid fa-volume-high" id="iconoAudio"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="os-desktop-wrapper" style="padding: 20px;">
+        <div class="os-logo-header">
+            <img src="img/SmileOS2.0.png" alt="SmileOS 2.0 Logo" class="os-main-logo-image">
+        </div>
+
+        <div class="os-menu-grid">
+            <div class="os-menu-buttons-panel">
+                <a href="ejercicios/fibo.html" target="os_viewport" class="os-menu-btn" onclick="activarIframe()">COMPRESIÓN FIBO</a>
+                <a href="ejercicios/primos.html" target="os_viewport" class="os-menu-btn" onclick="activarIframe()">CIFRADO DE CLAVES</a>
+                <a href="ejercicios/combinado.html" target="os_viewport" class="os-menu-btn" onclick="activarIframe()">ANÁLISIS DE RED</a>
+                <a href="ejercicios/creditos.html" target="os_viewport" class="os-menu-btn" onclick="activarIframe()">CREDITOS</a>
+                
+                <button class="os-menu-btn" style="background: #111; margin-top: 15px; color: var(--os-gold);" onclick="mostrarTip()">[ CERRAR_VENTANA ]</button>
+            </div>
+
+            <div class="os-totd-window">
+                <div class="os-totd-header">
+                    <span class="totd-dot"></span>
+                    <span class="totd-title" id="tituloVentana">Consejo del Día</span>
+                    <div class="totd-controls"><span>-</span><span>+</span><span style="cursor:pointer;" onclick="mostrarTip()">x</span></div>
+                </div>
+                
+                <div class="os-totd-content" id="contenedorDinamico">
+                    <div id="vistaTip">
+                        <p class="totd-highlight">D i v i e r t e t e :D.</p>
+                        <p class="totd-hint">// Selecciona un módulo matemático en el panel izquierdo para inicializar los subsistemas algorítmicos operativos.</p>
+                    </div>
+                    
+                    <iframe name="os_viewport" id="osViewport" frameborder="0" style="display: none; width: 100%; height: 100%;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="p5-footer">
+        <div class="os-footer-red-line">
+            <div class="smile-avatar-egg">
+                <img src="img/HELLITSELF1 (2).png" alt="System Face" class="smile-custom-avatar-img">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let musicaIniciada = false;
+        
+        function alternarMusica() {
+            const musica = document.getElementById("sndMúsica");
+            const icono = document.getElementById("iconoAudio");
+            if (!musicaIniciada) {
+                musica.play().catch(e => console.log("Clic requerido por seguridad"));
+                icono.className = "fa-solid fa-volume-high";
+                musicaIniciada = true;
+            } else {
+                musica.pause();
+                icono.className = "fa-solid fa-volume-xmark";
+                musicaIniciada = false;
+            }
+        }
+
+        function activarIframe() {
+            document.getElementById("vistaTip").style.display = "none";
+            document.getElementById("osViewport").style.display = "block";
+            document.getElementById("tituloVentana").innerText = "SmileOS Workstation // Running...";
+        }
+
+        function mostrarTip() {
+            document.getElementById("osViewport").style.display = "none";
+            document.getElementById("osViewport").src = "about:blank";
+            document.getElementById("vistaTip").style.display = "block";
+            document.getElementById("tituloVentana").innerText = "Consejo del Día";
+        }
+    </script>
+</body>
+</html>

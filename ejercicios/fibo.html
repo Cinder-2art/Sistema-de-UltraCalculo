@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="os-subpage-body">
+    <div class="p5-card">
+        <div class="p5-card-body">
+            <div class="p5-context-box">
+                <p><strong>// APLICACIÓN DE AHORRO PROGRESIVO:</strong> Proyección financiera optimizada mediante depósitos orgánicos basados en la Sucesión de Fibonacci.</p>
+                <p>La aplicación simula un sistema de ahorro inteligente donde el dinero aumenta de forma progresiva siguiendo la Sucesión de Fibonacci. En lugar de ahorrar siempre la misma cantidad, el sistema incrementa los depósitos de manera gradual, así ahorrar la mayor cantidad de dinero, iniciando de poco</p>
+            </div>
+            <form onsubmit="event.preventDefault(); proyeccionFibo();" class="p5-form">
+                <div class="p5-input-wrapper">
+                    <label>> MESES A PROYECTAR (1-15):</label>
+                    <input type="number" id="mesesInput" min="1" max="15" required class="os-input">
+                </div>
+                <button type="submit" class="p5-btn">CALCULAR FLUJO</button>
+            </form>
+            <div id="salidaFibo" class="p5-render-area"></div>
+        </div>
+    </div>
+    <script>
+        function proyeccionFibo() {
+            const meses = parseInt(document.getElementById("mesesInput").value);
+            const salida = document.getElementById("salidaFibo");
+            let a = 0, b = 1, c, total = 0;
+            let html = '<div class="p5-fibo-container">';
+            for(let i=1; i<=meses; i++) {
+                let actual = (i === 1) ? b : (c = a + b, a = b, b = c, c);
+                total += actual;
+                html += `
+                <div class="p5-fibo-stripe-item">
+                    <div class="p5-fibo-row-top"><span>MES 0${i}</span><span class="p5-fibo-val">Bs. ${actual}</span></div>
+                    <div class="p5-fibo-bar-visual" style="width: ${Math.min(actual*5, 100)}%;"></div>
+                    <p class="p5-fibo-desc">Acumulado Neto: Bs. ${total}</p>
+                </div>`;
+            }
+            html += `<p class="p5-prime-alert" style="color:var(--os-gold)">[SYS] DEPÓSITO TOTAL CAPITALIZADO: Bs. ${total}</p></div>`;
+            salida.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

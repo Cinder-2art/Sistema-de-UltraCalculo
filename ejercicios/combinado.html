@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="os-subpage-body">
+    <div class="p5-card">
+        <div class="p5-card-body split-layout">
+            <div>
+                <div class="p5-context-box">
+                    <p><strong>// COMPRESIÓN DE DATOS INTELIGENTE:</strong> Usamos la sucesión de Fibonacci para definir el tamaño creciente de cada bloque de datos transmitido sin saturar la memoria. Si el peso del bloque (KB) resulta ser Primo, el sistema activa un protocolo automático de alta prioridad.</p>
+                    <p>Fibonacci permite aumentar el tamaño de los datos de manera progresiva y estable. Si un bloque tiene tamaño Primo, el sistema lo trata como prioritario para optimizar la transmisión.</p>
+                </div>
+                <form onsubmit="event.preventDefault(); simularCompresion();" class="p5-form">
+                    <div class="p5-input-wrapper">
+                        <label>> NÚMERO DE PAQUETES A TRANSMITIR (1-18):</label>
+                        <input type="number" id="paquetesInput" min="1" max="18" required class="os-input">
+                    </div>
+                    <button type="submit" class="p5-btn">INICIAR COMPRESIÓN DE FLUJO</button>
+                </form>
+            </div>
+            <div id="salidaCiudad" class="p5-city-monitor">
+                <div class="monitor-placeholder">[ESPERANDO INICIALIZACIÓN DE CONEXIÓN...]</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Función auxiliar para determinar si el peso del bloque es primo
+        function esPrimo(n) {
+            if (n < 2) return false;
+            for(let x=2; x<=Math.sqrt(n); x++) { if(n%x === 0) return false; }
+            return true;
+        }
+
+        function simularCompresion() {
+            const tot = parseInt(document.getElementById("paquetesInput").value);
+            const monitor = document.getElementById("salidaCiudad");
+            let a = 0, b = 1, c;
+            let html = '<div class="p5-city-grid">';
+            
+            for(let i=1; i<=tot; i++) {
+                let pesoKB = (i === 1) ? b : (c = a + b, a = b, b = c, c);
+                let prioridadAlta = esPrimo(pesoKB);
+                
+                html += `
+                <div class="p5-city-node ${prioridadAlta ? 'secure-node' : ''}">
+                    <div class="p5-node-tag" style="font-size:9px; font-weight:bold; color:${prioridadAlta ? '#22aa22':'#888'}">
+                        ${prioridadAlta ? '[ALTA PRIORIDAD]' : '[ESTÁNDAR]'}
+                    </div>
+                    <div style="margin: 6px 0; font-size:13px; font-weight:bold; color:#fff;">${pesoKB} KB</div>
+                    <div style="font-size:9px; color:#888;">Bloque_Dato #${i}</div>
+                </div>`;
+            }
+            html += '</div>';
+            monitor.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

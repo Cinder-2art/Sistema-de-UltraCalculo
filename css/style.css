@@ -1,0 +1,140 @@
+/* =========================================================================
+   SMILEOS 2.0 INFRASTRUCTURE DESIGN SYSTEM (CLEAN RE-LINK)
+   ========================================================================= */
+@font-face {
+    font-family: 'Bittypix Mono';
+    src: url('../font/Bittypix Monospace.otf') format('opentype');
+    font-weight: normal; font-style: normal;
+}
+
+:root {
+    --os-bg: #1e1e1e;
+    --os-surface: #2a2a2a;
+    --os-panel-border: #151515;
+    --os-red: #aa2222;
+    --os-red-bright: #ff3333;
+    --os-pink-neon: #ff007f;
+    --os-text: #dcdcdc;
+    --os-gold: #e5b842;
+    --os-font: 'Bittypix Mono', 'Courier New', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+    font-family: var(--os-font);
+    font-smooth: never; -webkit-font-smoothing: none;
+}
+
+/* ARRANQUE Y CONTENEDOR EN RAÍZ */
+body.os-emulated-body {
+    background-color: var(--os-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* BARRA SUPERIOR OPERATIVA */
+.smile-os-top-bar {
+    background-color: var(--os-red);
+    height: 35px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 10px; border-bottom: 2px solid var(--os-panel-border);
+}
+.os-left-brand { display: flex; align-items: center; gap: 8px; }
+.os-top-image-logo { width: 20px; height: 20px; object-fit: contain; }
+.os-title { color: #fff; font-size: 14px; }
+.os-status { color: var(--os-gold); font-size: 12px; }
+.os-window-controls button {
+    background: #333; color: #fff; border: 1px solid #555;
+    width: 20px; height: 20px; font-size: 12px; cursor: pointer;
+}
+
+/* ESTRUCTURA DEL ESCRITORIO (FIEL A TU CAPTURA) */
+.os-desktop-wrapper { max-width: 950px; margin: 15px auto; width: 100%; }
+.os-logo-header { margin-bottom: 20px; font-size: 28px; }
+.smile-logo-white { color: #ffffff; font-weight: bold; }
+.smile-logo-os { color: var(--os-gold); }
+.smile-logo-v { color: #666; font-size: 14px; margin-left: 4px; }
+
+.os-menu-grid { display: grid; grid-template-columns: 260px 1fr; gap: 25px; }
+.os-menu-buttons-panel { display: flex; flex-direction: column; gap: 10px; }
+
+/* BOTONES DEL MENÚ PRINCIPAL */
+.os-menu-btn {
+    background: linear-gradient(to bottom, #444 0%, #252525 100%);
+    color: #ffffff; text-decoration: none; padding: 14px; font-size: 12px;
+    text-align: center; border: 2px solid #111; border-radius: 4px;
+    box-shadow: inset 0 1px 0 #666; display: block; cursor: pointer;
+}
+.os-menu-btn:hover {
+    background: linear-gradient(to bottom, #555 0%, #333 100%);
+    border-color: var(--os-pink-neon);
+}
+
+/* VENTANA CONTENEDORA GRIS DEL IFRAME */
+.os-totd-window { background: #222; border: 2px solid #000; border-radius: 4px; display: flex; flex-direction: column; }
+.os-totd-header { background: var(--os-red); padding: 6px 10px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #000; }
+.totd-dot { width: 6px; height: 6px; background: #fff; border-radius: 5px; }
+.totd-title { color: #fff; font-size: 12px; flex: 1; }
+.totd-controls span { color: #fff; margin-left: 6px; font-size: 11px; }
+
+.os-totd-content { padding: 20px; background: #1a1a1a; flex: 1; min-height: 380px; display: flex; flex-direction: column; }
+.totd-highlight { color: var(--os-red-bright); font-size: 22px; margin-bottom: 10px; }
+.totd-hint { color: #888; font-size: 11px; line-height: 1.4; }
+
+/* ESTILOS DE LOS EJERCICIOS (MÓDULOS DE SUBPÁGINAS) */
+body.os-subpage-body { background-color: transparent; color: var(--os-text); padding: 0; width: 100%; height: 100%; }
+.p5-card { width: 100%; display: flex; flex-direction: column; }
+.p5-card-body { display: flex; flex-direction: column; gap: 12px; }
+.p5-context-box, .p5-info-box { background: #111; border: 1px solid #333; padding: 10px; font-size: 11px; line-height: 1.4; }
+.p5-context-box { border-left: 3px solid var(--os-gold); }
+.p5-info-box { border-left: 3px solid var(--os-red); }
+
+.p5-form { display: flex; flex-direction: column; gap: 8px; }
+.p5-input-wrapper label { font-size: 11px; color: #aaa; }
+.os-input { width: 100%; background: #050505; border: 2px solid #444; padding: 6px; color: #fff; font-size: 12px; margin-top: 4px; }
+.p5-btn { background: #2a2a2a; color: #fff; border: 2px solid #555; padding: 8px; font-size: 11px; cursor: pointer; width: 100%; }
+.p5-btn:hover { background: var(--os-red); }
+
+/* CONTENEDORES DE RENDERIZACIÓN */
+.p5-fibo-container { background: #0a0a0a; border: 1px solid #333; padding: 8px; max-height: 180px; overflow-y: auto; margin-top: 10px; }
+.p5-fibo-stripe-item { border-bottom: 1px solid #222; padding: 5px 0; }
+.p5-fibo-row-top { display: flex; justify-content: space-between; font-size: 11px; }
+.p5-fibo-val { color: var(--os-gold); }
+.p5-fibo-bar-visual { background: var(--os-red); height: 5px; margin: 4px 0; }
+.p5-fibo-desc { font-size: 10px; color: #666; }
+
+.p5-prime-alert { border: 1px solid var(--os-red); background: #201010; padding: 10px; font-size: 11px; margin-top: 5px; }
+.p5-prime-alert.is-prime { border-color: #22aa22; background: #102010; }
+.consola-cifrado { background: #000; border: 1px solid #222; padding: 8px; margin-top: 8px; font-family: monospace; }
+.txt-rojo { color: var(--os-red-bright); font-size: 10px; }
+.txt-verde { color: #22aa22; font-size: 12px; }
+
+/* RETÍCULA DE LA COMPRESIÓN DE BLOQUES */
+.split-layout { display: grid; grid-template-columns: 1fr; gap: 15px; }
+.p5-city-monitor { background: #0a0a0a; border: 1px solid #333; min-height: 160px; padding: 8px; width: 100%; max-height: 220px; overflow-y: auto; }
+.monitor-placeholder { color: #444; font-size: 11px; text-align: center; padding-top: 60px; }
+.p5-city-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+.p5-city-node { background: #151515; border: 1px solid #444; padding: 6px; text-align: center; color: #fff; }
+.p5-city-node.secure-node { border: 1px solid #22aa22; background: #0a1c0a; color: #22aa22; box-shadow: 0 0 4px rgba(34,170,34,0.3); }
+
+/* =========================================================================
+   BARRA DE TAREAS / FOOTER INTERACTIVO CON EASTER EGG ROSA
+   ========================================================================= */
+.p5-footer { text-align: center; margin-top: auto; position: relative; width: 100%; }
+.os-footer-red-line { background-color: var(--os-red); height: 40px; width: 100%; border-top: 2px solid #151515; position: relative; display: flex; align-items: center; transition: background-color 0.15s ease; }
+.smile-avatar-egg { position: absolute; left: 20px; width: 32px; height: 32px; background-color: #1a1a1a; border: 2px solid #000; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; }
+.smile-custom-avatar-img { width: 100%; height: 100%; object-fit: cover; }
+
+/* HOVER INTERACTIVO AL ROSA SOLICITADO */
+.smile-avatar-egg:hover { border-color: var(--os-pink-neon); }
+.smile-avatar-egg:hover ~ .os-footer-red-line, .os-footer-red-line:hover { background-color: var(--os-pink-neon); }
+
+/* RESPONSIVE */
+@media (min-width: 750px) {
+    .split-layout { grid-template-columns: 220px 1fr; }
+}
+@media (max-width: 700px) {
+    .os-menu-grid { grid-template-columns: 1fr; }
+    .smile-avatar-egg { left: 50%; transform: translateX(-50%); }
+}

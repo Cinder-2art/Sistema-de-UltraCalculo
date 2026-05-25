@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="os-subpage-body">
+    <div class="p5-card">
+        <div class="p5-card-body">
+            <div class="p5-context-box">
+                <p><strong>// AUDITORÍA DE SEGURIDAD // GENERADOR DE HASH:</strong> Valida el token numérico de entrada. Si el sistema corrobora que es un Número Primo, se usará de inmediato como clave matemática para encriptar la cadena de seguridad del núcleo del sistema operativo.</p>
+                <p> El sistema revisa si el número ingresado es Primo. Si lo es, puede utilizarse como clave segura para proteger información mediante criptografía.</p>
+            </div>
+            <form onsubmit="event.preventDefault(); ejecutarCifrado();" class="p5-form">
+                <div class="p5-input-wrapper">
+                    <label>> INGRESE TOKEN NUMÉRICO (1-9999):</label>
+                    <input type="number" id="tokenInput" min="1" max="9999" required class="os-input">
+                </div>
+                <button type="submit" class="p5-btn">EVALUAR Y ENCRIPTAR CREDENCIAL</button>
+            </form>
+            <div id="salidaPrimos" class="p5-render-area"></div>
+        </div>
+    </div>
+    <script>
+        function ejecutarCifrado() {
+            const num = parseInt(document.getElementById("tokenInput").value);
+            const salida = document.getElementById("salidaPrimos");
+            let div = 0;
+            
+            // Verificación matemática de número primo sin arrays
+            for(let i=1; i<=num; i++) { if(num % i === 0) div++; }
+            
+            if(div === 2) {
+                const msgOriginal = "SMILE_CORE_ACCESS_GRANTED";
+                let msgCifrado = "";
+                let pasosLog = "";
+                // Determinamos un desplazamiento dinámico basado en el primo para no salirnos de rango visible
+                let llave = (num % 5) + 2; 
+                
+                for(let k=0; k<msgOriginal.length; k++) {
+                    let ascii = msgOriginal.charCodeAt(k);
+                    let nuevoAscii = ascii + llave;
+                    msgCifrado += String.fromCharCode(nuevoAscii);
+                    pasosLog += `* Char [${msgOriginal[k]}] (ASCII ${ascii}) + Llave Cripto (${llave}) => [${String.fromCharCode(nuevoAscii)}]<br>`;
+                }
+
+                salida.innerHTML = `
+                <div class="p5-prime-alert is-prime">
+                    <p>[TOKEN COMPROBADO] ¡NÚMERO PRIMO DETECTADO PARA GENERACIÓN DE LLAVE ASIMÉTRICA!</p>
+                    <div class="consola-cifrado">
+                        <p class="txt-rojo">// INICIANDO CIFRADO POR DESPLAZAMIENTO LINEAL DE CARACTERES:</p>
+                        <p style="margin: 8px 0; color:#aaa; font-size:11px; line-height: 1.4;">${pasosLog}</p>
+                        <p style="color:var(--os-gold); margin-bottom:4px;">> TEXTO PLANO PROTEGIDO: ${msgOriginal}</p>
+                        <p class="txt-verde">> CREDENCIAL ENCRIPTADA EMITIDA: ${msgCifrado}</p>
+                    </div>
+                </div>`;
+            } else {
+                salida.innerHTML = `
+                <div class="p5-prime-alert">
+                    <p>[ERROR: CONFLICTO DE SEGURIDAD] Acceso Denegado. El número ingresado es compuesto (posee ${div} divisores). No puede ser utilizado como semilla criptográfica segura.</p>
+                </div>`;
+            }
+        }
+    </script>
+</body>
+</html>
